@@ -1,0 +1,51 @@
+.contenedor {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.contador {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.talleres {
+  display: grid;
+  gap: 20px;
+}
+
+.tarjeta {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.tarjeta h2 {
+  margin-top: 0;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.confirmacion {
+  font-weight: bold;
+}
+
+.cancelar {
+  margin-top: 10px;
+}
