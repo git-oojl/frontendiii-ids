@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   imports: [],
@@ -9,6 +9,7 @@ import { Component, signal } from '@angular/core';
 export class App {
 
   titulo = 'Talleres disponibles';
+  maxTalleres = 2;
 
   talleres = [
     {id: 1, nombre: 'Introducción a HTML', duracion: '2 horas'},
@@ -20,8 +21,15 @@ export class App {
 
   inscritos = signal<number[]>([]);
 
+  talleresSeleccionados = computed(() =>
+    this.talleres.filter(taller => this.inscritos().includes(taller.id))
+  );
+
   inscribirse(id: number) {
-    if (this.inscritos().includes(id)) {
+    if (
+      this.inscritos().includes(id) ||
+      this.inscritos().length >= this.maxTalleres
+    ) {
       return;
     }
 
@@ -32,5 +40,9 @@ export class App {
     this.inscritos.update(actuales =>
       actuales.filter(tallerId => tallerId !== id)
     );
+  }
+
+  cancelarTodas() {
+    this.inscritos.set([]);
   }
 }

@@ -18,7 +18,7 @@
 
         <button
           (click)="inscribirse(taller.id)"
-          [disabled]="inscritos().includes(taller.id)">
+          [disabled]="inscritos().includes(taller.id) || inscritos().length >= maxTalleres">
           Inscribirme
         </button>
 
@@ -40,6 +40,36 @@
 
     }
 
+  </section>
+
+  <section class="resumen">
+    <div class="resumen-encabezado">
+      <h2>Resumen de inscripciones</h2>
+
+      <button
+        class="cancelar-todas"
+        (click)="cancelarTodas()"
+        [disabled]="inscritos().length === 0">
+        Cancelar todas las inscripciones
+      </button>
+    </div>
+
+    @if (inscritos().length === maxTalleres) {
+      <p class="aviso">Has alcanzado el máximo de dos talleres</p>
+    }
+
+    @if (talleresSeleccionados().length === 0) {
+      <p>Todavía no has seleccionado talleres</p>
+    } @else {
+      <ul>
+        @for (taller of talleresSeleccionados(); track taller.id) {
+          <li>
+            <span>{{ taller.nombre }}</span>
+            <span>{{ taller.duracion }}</span>
+          </li>
+        }
+      </ul>
+    }
   </section>
 
 </main>
