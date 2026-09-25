@@ -1,0 +1,36 @@
+<main class="catalogo">
+  <h1>Catálogo de productos</h1>
+
+  <label for="buscar">Buscar por nombre</label>
+  <input
+    #campo
+    id="buscar"
+    type="search"
+    placeholder="Escribe un nombre"
+    (input)="actualizarBusqueda(campo.value)"
+  />
+
+  <p class="contador">Productos encontrados: {{ productosFiltrados().length }}</p>
+
+  @if (productosFiltrados().length === 0) {
+    <p class="vacio">No se encontraron productos</p>
+  } @else {
+    <section class="productos">
+      @for (producto of productosFiltrados(); track producto.id) {
+        <article class="tarjeta">
+          <h2>{{ producto.nombre | uppercase }}</h2>
+          <p>Categoría: {{ producto.categoria }}</p>
+          <p>Precio: {{ producto.precio | currency: 'MXN' : 'symbol' : '1.2-2' }}</p>
+          <p>Existencias: {{ producto.existencias }}</p>
+          <p
+            class="disponibilidad"
+            [class.agotado]="producto.existencias === 0"
+            [class.disponible]="producto.existencias > 0"
+          >
+            {{ producto.existencias | disponibilidad }}
+          </p>
+        </article>
+      }
+    </section>
+  }
+</main>
