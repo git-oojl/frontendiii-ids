@@ -1,0 +1,10 @@
+# Angular
+/dist
+/.angular
+
+# Dependencias
+/node_modules
+
+# Archivos de editor y sistema
+.DS_Store
+Thumbs.db

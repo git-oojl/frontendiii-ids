@@ -1,0 +1,155 @@
+<main class="contenedor">
+  <header class="encabezado">
+    <h1>Registra tu usuario</h1>
+    <p class="descripcion">
+      Formulario de registro con enfoque Template Driven. Completa los datos para crear tu cuenta.
+    </p>
+  </header>
+
+  <form
+    #formulario="ngForm"
+    class="tarjeta formulario"
+    novalidate
+    (ngSubmit)="registrar(formulario)">
+    <div class="campos">
+      <div class="campo campo-ancho">
+        <label for="nombreCompleto">Nombre completo</label>
+        <input
+          id="nombreCompleto"
+          name="nombreCompleto"
+          type="text"
+          placeholder="Ej. Ana López García"
+          [(ngModel)]="datos.nombreCompleto"
+          #nombre="ngModel"
+          required />
+        @if (nombre.invalid && nombre.touched) {
+          <small class="error">Escribe tu nombre completo.</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input
+          id="correo"
+          name="correo"
+          type="email"
+          placeholder="ana@correo.com"
+          [(ngModel)]="datos.correo"
+          #correo="ngModel"
+          required
+          email />
+        @if (correo.invalid && correo.touched) {
+          <small class="error">Escribe un correo válido.</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Teléfono</label>
+        <input
+          id="telefono"
+          name="telefono"
+          type="tel"
+          placeholder="55 1234 5678"
+          [(ngModel)]="datos.telefono"
+          #telefono="ngModel"
+          pattern="^[0-9 ()+-]{10,20}$"
+          required />
+        @if (telefono.invalid && telefono.touched) {
+          <small class="error">Escribe un teléfono válido.</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="edad">Edad</label>
+        <input
+          id="edad"
+          name="edad"
+          type="number"
+          min="1"
+          max="120"
+          placeholder="25"
+          [(ngModel)]="datos.edad"
+          #edad="ngModel"
+          step="1"
+          required />
+        @if (edad.invalid && edad.touched) {
+          <small class="error">Escribe una edad entre 1 y 120.</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="contrasena">Contraseña</label>
+        <input
+          id="contrasena"
+          name="contrasena"
+          type="password"
+          placeholder="Mínimo 6 caracteres"
+          minlength="6"
+          [(ngModel)]="datos.contrasena"
+          #contrasena="ngModel"
+          required />
+        @if (contrasena.invalid && contrasena.touched) {
+          <small class="error">Usa al menos 6 caracteres.</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="confirmacionContrasena">Confirmación de contraseña</label>
+        <input
+          id="confirmacionContrasena"
+          name="confirmacionContrasena"
+          type="password"
+          placeholder="Repite tu contraseña"
+          [(ngModel)]="datos.confirmacionContrasena"
+          #confirmacion="ngModel"
+          required />
+        @if (confirmacion.invalid && confirmacion.touched) {
+          <small class="error">Confirma tu contraseña.</small>
+        }
+      </div>
+    </div>
+
+    <button class="boton" type="submit" [disabled]="formulario.invalid">
+      Registrar
+    </button>
+  </form>
+
+  @if (mensajeError) {
+    <p class="mensaje-error">{{ mensajeError }}</p>
+  }
+
+  @if (datosEnviados) {
+    <section class="tarjeta resultado">
+      <h2>Registro completado</h2>
+
+      <dl class="resumen">
+        <div>
+          <dt>Nombre completo</dt>
+          <dd>{{ datosEnviados.nombreCompleto }}</dd>
+        </div>
+        <div>
+          <dt>Correo electrónico</dt>
+          <dd>{{ datosEnviados.correo }}</dd>
+        </div>
+        <div>
+          <dt>Teléfono</dt>
+          <dd>{{ datosEnviados.telefono }}</dd>
+        </div>
+        <div>
+          <dt>Edad</dt>
+          <dd>{{ datosEnviados.edad }}</dd>
+        </div>
+        <div>
+          <dt>Contraseña</dt>
+          <dd>••••••••</dd>
+        </div>
+        <div>
+          <dt>Confirmación de contraseña</dt>
+          <dd>••••••••</dd>
+        </div>
+      </dl>
+    </section>
+  }
+
+  <footer class="pie">Práctica 2.3 | Ortiz Osuna José Luis | 010IDPRMA</footer>
+</main>
